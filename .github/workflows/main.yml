@@ -1,0 +1,19 @@
+name: Auto Assign to Project(s)
+
+on:
+  issues:
+    types: [opened, labeled]
+env:
+  MY_GITHUB_TOKEN: ${{ secrets.FRAME_ONE_SOFTWARE_GITHUB }}
+
+jobs:
+  assign_one_project:
+    runs-on: ubuntu-latest
+    name: Assign to One Project
+    steps:
+    - name: Assign NEW issues and NEW pull requests to board
+      uses: srggrs/assign-one-project-github-action@1.2.0
+      if: github.event.action == 'opened'
+      with:
+        project: 'https://github.com/orgs/Frame-One-Software/projects/4'
+        column_name: 'Backlog'
