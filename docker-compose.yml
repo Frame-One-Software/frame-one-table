@@ -1,0 +1,14 @@
+version: "3.8"
+
+services:
+
+  storybook:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    restart: unless-stopped
+    ports:
+      - 6006:6006
+    volumes:
+      - ./src:/usr/src/frame-one-table/src:delegated
+      - ./public:/usr/src/frame-one-table/public:delegated
