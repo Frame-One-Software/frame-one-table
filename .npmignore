@@ -1,0 +1,14 @@
+.idea
+.github
+.storybook
+.dockerignore
+node_modules
+public
+src
+README.md
+tsconfig.json
+Dockerfile
+docker-compose.yml
+package-lock.json
+**/*.tgz
+package

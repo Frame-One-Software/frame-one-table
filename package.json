@@ -1,6 +1,6 @@
 {
   "name": "frame-one-table",
-  "version": "0.1.0",
+  "version": "0.1.0-beta",
   "main": "build/index.js",
   "module": "build/index.es.js",
   "jsnext:main": "build/index.es.js",
@@ -17,7 +17,6 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "tsc && copyfiles -u 1 src/**/*.scss build/ && find ./build -type f -name \"**.stories.*\" -delete",
-
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public",
