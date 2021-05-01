@@ -22,7 +22,7 @@ const TableHeader: React.FC<ITableHeaderProps> = (props: ITableHeaderProps) => {
 			content = column.headerRender(column.headerValue, data[i], column.key, data, i);
 		}
 
-		const thClasses = classNames(column.headerCellClassName, {
+		const thClasses: string = classNames(column.headerCellClassName, {
 			"cursor-pointer": column.sortable,
 		});
 
