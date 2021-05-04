@@ -1,17 +1,17 @@
 import React, {ReactNode} from "react";
 import {ColumnOption, TableGeneratorProps} from "./TableGenerator";
 import classNames from "classnames";
-import {TableDataRow} from "./contextTypes";
+import {TableData} from "./contextTypes";
 
-interface ITableHeaderProps extends TableGeneratorProps {
-	onSort?(data: TableDataRow): void;
+interface ITableFooterProps extends TableGeneratorProps {
+	onSort?(data: TableData[]): void;
 }
 
-const TableHeader: React.FC<ITableHeaderProps> = (props: ITableHeaderProps) => {
+const TableFooter: React.FC<ITableFooterProps> = (props: ITableFooterProps) => {
 
-	const {data, columnOptions, headerClassName, headerStyle} = props;
+	const {data, columnOptions, footerClassName, footerStyle} = props;
 
-	function makeTableHeaderCell(column: ColumnOption, i: number): ReactNode {
+	function makeTableFooterCell(column: ColumnOption, i: number): ReactNode {
 		if (column.hidden) {
 			return null;
 		}
@@ -22,17 +22,17 @@ const TableHeader: React.FC<ITableHeaderProps> = (props: ITableHeaderProps) => {
 		const isSortable: boolean = (props.sortable && column.sortable !== false) || column.sortable;
 
 
-		// Create the content to be rendered, starting with the headerValue.
-		let content: ReactNode = column.headerValue;
+		// Create the content to be rendered, starting with the footerValue.
+		let content: ReactNode = column.footerValue;
 
 		// Reassign the content to the custom render function if it exists.
-		if (column.headerRender) {
-			content = column.headerRender(column.headerValue, undefined, column.key, data, i);
+		if (column.footerRender) {
+			content = column.footerRender(column.footerValue, undefined, column.key, data, i);
 		}
 
 
-		// Generate classes for the header cell.
-		const thClasses: string = classNames(column.headerCellClassName, {
+		// Generate classes for the footer cell.
+		const thClasses: string = classNames(column.footerCellClassName, {
 			"cursor-pointer": isSortable,
 		});
 
@@ -44,7 +44,7 @@ const TableHeader: React.FC<ITableHeaderProps> = (props: ITableHeaderProps) => {
 			}
 
 			if (column.sortFunction) {
-				let d: TableDataRow = data;
+				let d: TableData[] = data;
 				// todo run through custom sort
 				alert("run custom sort!");
 				props.onSort(d);
@@ -56,7 +56,7 @@ const TableHeader: React.FC<ITableHeaderProps> = (props: ITableHeaderProps) => {
 		return (
 			<th
 				className={thClasses}
-				style={column.headerCellStyle}
+				style={column.footerCellStyle}
 				onClick={handleSort}
 			>
 				{content}
@@ -65,15 +65,15 @@ const TableHeader: React.FC<ITableHeaderProps> = (props: ITableHeaderProps) => {
 	}
 
 	return (
-		<thead>
+		<tfoot>
 			<tr
-				className={headerClassName}
-				style={headerStyle}
+				className={footerClassName}
+				style={footerStyle}
 			>
-				{columnOptions.map(makeTableHeaderCell)}
+				{columnOptions.map(makeTableFooterCell)}
 			</tr>
-		</thead>
+		</tfoot>
 	);
 };
 
-export default TableHeader;
+export default TableFooter;
