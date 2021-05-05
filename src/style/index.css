@@ -1,0 +1,14 @@
+@import "./variables.css";
+@import "./table.css";
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.d-flex {
+    display: flex;
+}
+
+.flex-row {
+    flex-direction: row;
+}

@@ -1,35 +1,8 @@
-/*
-#57c7e0
-#114b5f
-#456990
-#f45b69
-#6b2737
- */
-.test-frameOneBlue {
-  color: #57c7e0;
-}
-
-.test-darkBlue {
-  color: #114b5f;
-}
-
-.test-lightBlue {
-  color: #456990;
-}
-
-.test-pink {
-  color: #f45b69;
-}
-
-.test-burgundy {
-  color: #6b2737;
-}
-
-
 * {
   font-family: sans-serif; /* Change your font family */
 }
 
+/* Table container, enables horizontal scrolling when parent container is too small */
 .table-responsive {
   display: block;
   width: 100%;
@@ -38,6 +11,7 @@
   -ms-overflow-style: -ms-autohiding-scrollbar;
 }
 
+/* General table */
 .content-table {
   border-collapse: collapse;
   margin: 25px 0;
@@ -48,33 +22,74 @@
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
 
+/* Header row */
 .content-table thead tr {
-  background-color: #456990;
-  color: #ffffff;
+  /*background-color: var(--lightBlue);*/
+  color: var(--white);
   text-align: left;
-  font-weight: bold;
 }
 
-.content-table th,
+/* Header cells */
+.content-table th {
+  padding: 8px 15px;
+  white-space: pre;
+  background-color: var(--lightBlue);
+  transition-duration: 700ms;
+  font-weight: normal;
+  font-size: 1.05em;
+}
+
+/* Header cell with sort true */
+.sortable-th:hover {
+  background-color: var(--lightBlueHover);
+}
+
+.sortable-th > div {
+  display: flex;
+  align-items: center;
+}
+
+/* Div container for sort icons */
+.sorting-icons-container {
+  font-size: 0.7em;
+  margin-left: 0.9em;
+  user-select: none;
+}
+
+.sorting-icon {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.sorting-icon-active {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* Body cells */
 .content-table td {
-  padding: 12px 15px;
+  padding: 14px 15px;
+  white-space: pre;
 }
 
+/* Body rows */
 .content-table tbody tr {
-  border-bottom: 1px solid #dddddd;
-  border-left: 1px solid #dddddd;
-  color: #114b5f;
+  border-bottom: 1px solid var(--whiteB);
+  border-left: 1px solid var(--whiteB);
+  /*color: var(--darkBlue);*/
+  color: rgba(0, 0, 0, 0.7);
 }
 
+/* Make every other row striped if enabled */
 .content-table tbody tr:nth-of-type(even) {
-  background-color: #f3f3f3;
+  background-color: var(--whiteA);
 }
 
+/* Add bottom border to last row */
 .content-table tbody tr:last-of-type {
-  border-bottom: 2px solid #456990;
+  border-bottom: 2px solid var(--lightBlue);
 }
 
+/* Styles if we have an "active" / selected row */
 .content-table tbody tr.active-row {
   font-weight: bold;
-  color: #456990;
+  color: var(--lightBlue);
 }

@@ -36,7 +36,7 @@ Primary.args = {
 			favWord: "reference",
 		},
 		{
-			firstName: "xiao bin",
+			firstName: "lucy",
 			lastName: "sheng",
 			sex: false,
 			height: 175,
@@ -68,14 +68,14 @@ Primary.args = {
 			lastName: "jurr",
 			sex: true,
 			height: 179,
-			favWord: "discriminate",
+			favWord: "establish",
 		},
 	],
 	columnOptions: [
 		{
 			key: "firstName",
 			headerValue: "First Name",
-			sortable: true,
+			// sortable: true,
 			valueFormatter: stringToCaps,
 		},
 		{
@@ -95,7 +95,7 @@ Primary.args = {
 			headerValue: "Height (cm)",
 			sortable: true,
 			valueFormatter: (height: number) => height + "cm",
-			rowCellStyle: {textAlign: "right"}
+			rowCellStyle: {textAlign: "right"},
 		},
 		{
 			key: "favWord",
@@ -107,6 +107,7 @@ Primary.args = {
 		{
 			key: "customRenderColumn",
 			headerValue: "Custom Render",
+			sortable: false,
 			cellRender: (value, row, key, data, index) => {
 				return (
 					<div style={{display: "flex", justifyContent: "center"}}>
@@ -128,5 +129,5 @@ Primary.args = {
 			},
 		},
 	],
-	sortable: false,
+	sortable: true,
 };

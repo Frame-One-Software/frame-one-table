@@ -4,12 +4,13 @@ import {
 	ContextFunctionData,
 	ContextFunctionPagination,
 	ContextFunctionRow,
-	TableDataRow
+	TableData, TableDataEntry
 } from './contextTypes';
 import TableHeader from "./TableHeader";
 import TableRowManager from "./TableRowManager";
 import TableFooter from "./TableFooter";
-import "./style/table.css";
+import "./style/index.css";
+import {ISortStyle, sortTableData} from "./utils/sorting";
 
 export interface ColumnOption {
 	key: string | number; // which key or index is this referring to
@@ -30,7 +31,8 @@ export interface ColumnOption {
 	footerCellStyle?: CSSProperties; // overrides styling from className
 
 	sortable?: boolean; // overrides sortable prop on table
-	sortFunction?: (a: any, b: any) => number;
+	showSortIcons: boolean;
+	sortFunction?: (a: any, b: any, aRow: TableDataEntry, bRow: TableDataEntry, data: TableData, columns: ColumnOption[], sortConfiguration: ISortStyle) => number;
 
 	hidden?: boolean; // easier to use a boolean in some cases
 }
@@ -39,7 +41,7 @@ export interface TableGeneratorProps {
 	/**
 	 * Pass in the data here to be rendered
 	 */
-	data?: TableDataRow;
+	data?: TableData;
 
 	/**
 	 * Options to determine the rendering of each column
@@ -50,6 +52,7 @@ export interface TableGeneratorProps {
 	 * Determine a default for each column as sortable. This can be overridden by the columnOptions
 	 */
 	sortable?: boolean;
+	showSortIcons: boolean;
 
 	showHeader: boolean; // default true
 	showBody: boolean; // default true
@@ -88,17 +91,16 @@ export interface TableGeneratorProps {
 export const TableGenerator: React.FC<TableGeneratorProps> = (props) => {
 
 	const {
+		data,
+		columnOptions,
+		sortable,
 		showHeader,
 		showBody,
-		showFooter,
 	} = props;
 
-	// TODO change to saving sorted state
-	const [displayedData, setDisplayedData] = useState<TableDataRow>(props.data); //todo
+	const [sortConfiguration, setSortConfiguration] = useState<ISortStyle>(undefined);
 
-	function doSomeSorting(anotherFunction): any {
-		// save
-	}
+	const sortedData: TableData = sortTableData(props.data, columnOptions, sortConfiguration, sortable);
 
 	// TODO change spreaders into manual entry
 	return (
@@ -107,18 +109,16 @@ export const TableGenerator: React.FC<TableGeneratorProps> = (props) => {
 				{showHeader && (
 					<TableHeader
 						{...props}
-						onSort={setDisplayedData}
+						data={sortedData}
+						sortConfiguration={sortConfiguration}
+						onSort={setSortConfiguration}
 					/>
 				)}
 
 				{showBody && (
-					<TableRowManager {...props}/>
-				)}
-
-				{showFooter && (
-					<TableFooter
+					<TableRowManager
 						{...props}
-						onSort={setDisplayedData}
+						data={sortedData}
 					/>
 				)}
 			</table>
@@ -130,6 +130,7 @@ TableGenerator.defaultProps = {
 	showHeader: true,
 	showBody: true,
 	showFooter: false,
+	showSortIcons: true,
 };
 
 export default TableGenerator;

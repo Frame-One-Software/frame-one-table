@@ -1,0 +1,11 @@
+:root {
+    --frameOneBlue: #57c7e0;
+    --darkBlue: #114b5f;
+    --lightBlue: #456990;
+    --lightBlueHover: #5b89ba;
+    --pink: #f45b69;
+    --burgundy: #6b2737;
+    --white: #ffffff; /* pure white */
+    --whiteA: #f3f3f3; /* table white main */
+    --whiteB: #dddddd; /* table white secondary */
+}
