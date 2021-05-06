@@ -1,9 +1,13 @@
 {
   "name": "frame-one-table",
   "version": "0.1.0",
+  "description": "A react table with maximum flexibility.",
   "main": "build/index.js",
   "module": "build/index.es.js",
   "jsnext:main": "build/index.es.js",
+  "repository": "Frame-One-Software/frame-one-table",
+  "author": "frame_one_software",
+  "license": "MIT",
   "private": false,
   "dependencies": {
     "@types/node": "12.0.0",
