@@ -1,4 +1,4 @@
-import {TableData, TableDataEntry, TableDataEntryJSON} from "../contextTypes";
+import {TableData} from "../contextTypes";
 import {ColumnOption} from "../TableGenerator";
 
 export enum SortOrder {

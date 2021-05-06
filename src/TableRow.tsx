@@ -3,7 +3,7 @@ import {ColumnOption, TableGeneratorProps} from "./TableGenerator";
 import {TableDataEntryArray, TableDataEntryJSON} from "./contextTypes";
 import classNames from "classnames";
 
-interface ITableRowProps extends Partial<TableGeneratorProps> {
+export interface ITableRowProps extends Partial<TableGeneratorProps> {
 	rowData: TableDataEntryArray | TableDataEntryJSON;
 	rowIndex: number;
 }

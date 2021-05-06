@@ -3,7 +3,7 @@ import {ColumnOption, TableGeneratorProps} from "./TableGenerator";
 import classNames from "classnames";
 import {ISortStyle, SortOrder} from "./utils/sorting";
 
-interface ITableHeaderProps extends Partial<TableGeneratorProps> {
+export interface ITableHeaderProps extends Partial<TableGeneratorProps> {
 	sortConfiguration: ISortStyle;
 	onSort?(sortConfiguration: ISortStyle): void;
 }
