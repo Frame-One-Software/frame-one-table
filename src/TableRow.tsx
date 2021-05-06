@@ -3,22 +3,22 @@ import {ColumnOption, TableGeneratorProps} from "./TableGenerator";
 import {TableDataEntryArray, TableDataEntryJSON} from "./contextTypes";
 import classNames from "classnames";
 
-interface ITableRowProps extends TableGeneratorProps {
+interface ITableRowProps extends Partial<TableGeneratorProps> {
 	rowData: TableDataEntryArray | TableDataEntryJSON;
 	rowIndex: number;
 }
 
-const TableRow: React.FC<ITableRowProps> = (props: ITableRowProps) => {
+const TableRow: React.FC<ITableRowProps> = (props) => {
 
 	const {
 		data,
 		columnOptions,
-		rowData,
-		rowIndex,
 		rowClassName,
 		rowCellClassName,
 		rowStyle,
 		rowCellStyle,
+		rowData,
+		rowIndex,
 	} = props;
 
 	function makeTableCell(column: ColumnOption): ReactNode {

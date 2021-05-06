@@ -1,7 +1,7 @@
 // table data
 export type TableDataEntryArray = any[]; // TODO: add support; array format not currently supported by any of the components or logic
 export type TableDataEntryJSON = {[key: string]: any};
-export type TableData = TableDataEntryArray[] | TableDataEntryJSON[];
+export type TableData = Array<TableDataEntryArray> | Array<TableDataEntryJSON>;
 export type TableDataEntry = TableDataEntryArray | TableDataEntryJSON;
 
 // context helper

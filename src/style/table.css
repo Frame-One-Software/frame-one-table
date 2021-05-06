@@ -2,6 +2,10 @@
   font-family: sans-serif; /* Change your font family */
 }
 
+.table-and-paginator-container {
+  width: 100%;
+}
+
 /* Table container, enables horizontal scrolling when parent container is too small */
 .table-responsive {
   display: block;
@@ -16,7 +20,7 @@
   border-collapse: collapse;
   margin: 25px 0;
   font-size: 0.9em;
-  min-width: 400px;
+  width: 100%;
   border-radius: 5px 5px 0 0;
   overflow: hidden;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
@@ -34,17 +38,21 @@
   padding: 8px 15px;
   white-space: pre;
   background-color: var(--lightBlue);
-  transition-duration: 700ms;
   font-weight: normal;
   font-size: 1.05em;
+  transition-duration: 700ms;
 }
 
 /* Header cell with sort true */
+.sortable-th {
+  cursor: pointer;
+}
+
 .sortable-th:hover {
   background-color: var(--lightBlueHover);
 }
 
-.sortable-th > div {
+.sortable-th-with-icons > div {
   display: flex;
   align-items: center;
 }

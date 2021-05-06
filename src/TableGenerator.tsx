@@ -8,33 +8,157 @@ import {
 } from './contextTypes';
 import TableHeader from "./TableHeader";
 import TableRowManager from "./TableRowManager";
-import TableFooter from "./TableFooter";
 import "./style/index.css";
 import {ISortStyle, sortTableData} from "./utils/sorting";
+import Paginator from "./Paginator";
+
+export interface IPaginatorProps {
+	/**
+	 * Show or hide the paginator. Defaults false
+	 */
+	show: boolean;
+
+	/**
+	 * String shown next to the drop-down for choosing the limit (ie. Showing X - Y of Z)
+	 */
+	limitLabel?: string;
+
+	/**
+	 * Currently selected limit for the table
+	 */
+	currentLimit: number;
+
+	/**
+	 * Array of numbers representing options for what limits can be chosen via the drop-down
+	 */
+	limitOptions: number[];
+
+	/**
+	 * Total number of results in the table or pool of data. Used to calculate the last index for the "go to last" button
+	 */
+	total: number;
+
+	/**
+	 * Handler for changing the limit per page via the drop-down
+	 * @param newLimit
+	 */
+	onLimitChange(newLimit: number): void;
+
+	/**
+	 * Toggle for if the "go to first" and "previous" buttons should be enabled
+	 */
+	enableGoPrevious?: boolean;
+
+	/**
+	 * Toggle for if the "go to last" and "next" buttons should be enabled
+	 */
+	enableGoNext?: boolean;
+
+	/**
+	 * Hide or show the "go to first" button. Defaults true
+	 */
+	showGoToFirstButton?: boolean;
+
+	/**
+	 * Hide or show the "go to last" button. Defaults true
+	 */
+	showGoToLastButton?: boolean;
+
+	/**
+	 * Current offset of the pagination, indexed at 0
+	 */
+	currentOffset: number;
+
+	/**
+	 * Array of numbers for which pages should be accessible via the paginator (indexed at 0 - ie. [0, 1, 2, 3, 4], will be displayed as [1, 2, 3, 4 ,5] by the library)
+	 */
+	availableOffsets: number[];
+
+	/**
+	 * Handler for changing the selected offset page
+	 * @param newOffset
+	 */
+	onOffsetChange(newOffset: number): void;
+}
 
 export interface ColumnOption {
-	key: string | number; // which key or index is this referring to
-	headerValue?: any; // this is what value is passed into the header, use this to label the header
-	footerValue?: any; // this is what value is passed into the footer, use this to label the footer
+	/**
+	 * key that is used to extract the correct value from the row's object (string) or array (number)
+	 */
+	key: string | number;
 
-	valueFormatter?: ContextFunctionCell<any>; // change the displayed value
-	headerRender?: ContextFunctionCell<ReactNode>; // format the header
-	cellRender?: ContextFunctionCell<ReactNode>; // format the cell
-	footerRender?: ContextFunctionCell<ReactNode>; // format the footer
+	/**
+	 * Label for the header cell (ie. First Name)
+	 *
+	 */
+	headerValue?: any;
 
-	headerCellClassName?: string; // class name applied to the header cell in the column
-	rowCellClassName?: string; // class name applied to each body cell in the column
-	footerCellClassName?: string; // class name applied to the footer cell in the column
+	/**
+	 * Format function to run the values for the column's body cells through before displaying them (ie. (height) => height + "cm"). Does not modify the value used to compare for sorting the column
+	 */
+	valueFormatter?: ContextFunctionCell<any>;
 
-	headerCellStyle?: CSSProperties; // overrides styling from className
-	rowCellStyle?: CSSProperties; // overrides styling from className
-	footerCellStyle?: CSSProperties; // overrides styling from className
+	/**
+	 * Custom render function for the header cell
+	 */
+	headerRender?: ContextFunctionCell<ReactNode>;
 
-	sortable?: boolean; // overrides sortable prop on table
+	/**
+	 * Custom render function for the body cells of this column
+	 *
+	 */
+	cellRender?: ContextFunctionCell<ReactNode>;
+
+	/**
+	 * className applied to the header cell
+	 *
+	 */
+	headerCellClassName?: string;
+
+	/**
+	 * className applied to the body cells of this column
+	 *
+	 */
+	rowCellClassName?: string;
+
+	/**
+	 * style tag applied to the header cell
+	 */
+	headerCellStyle?: CSSProperties;
+
+	/**
+	 * style tag applied to the body cells of this column
+	 */
+	rowCellStyle?: CSSProperties;
+
+	/**
+	 * Toggle if this column can be sorted. Takes precedent over the "sortable" prop from TableGeneratorProps
+	 */
+	sortable?: boolean;
+
+	/**
+	 * Toggle to hide or show the arrow icons in the header cell if the column is sortable. Takes precedent of the "showSortIcons" props from TableGeneratorProps
+	 */
 	showSortIcons: boolean;
+
+	/**
+	 * Custom sort function for the column where a & b are the values.
+	 * If not custom sort is applied, the library will attempt to sort automatically based on the primitive data type
+	 *
+	 * @param a
+	 * @param b
+	 * @param aRow
+	 * @param bRow
+	 * @param data
+	 * @param columns
+	 * @param sortConfiguration
+	 */
 	sortFunction?: (a: any, b: any, aRow: TableDataEntry, bRow: TableDataEntry, data: TableData, columns: ColumnOption[], sortConfiguration: ISortStyle) => number;
 
-	hidden?: boolean; // easier to use a boolean in some cases
+	/**
+	 * Toggle for hiding a column... Perhaps if a column becomes hidden based on certain conditions on your end, change this to false instead of creating a whole new set of column options
+	 */
+	hidden?: boolean;
 }
 
 export interface TableGeneratorProps {
@@ -49,79 +173,138 @@ export interface TableGeneratorProps {
 	columnOptions?: ColumnOption[];
 
 	/**
+	 * Props for controlling the paginator
+	 */
+	paginatorProps: IPaginatorProps;
+
+	/**
 	 * Determine a default for each column as sortable. This can be overridden by the columnOptions
 	 */
 	sortable?: boolean;
+
+	/**
+	 * Toggle to hide or show the arrow icons in the header cells when a column is sortable. Defaults true
+	 */
 	showSortIcons: boolean;
 
-	showHeader: boolean; // default true
-	showBody: boolean; // default true
-	showFooter: boolean; // default false
+	/**
+	 * Hide or show the header row. Defaults true
+	 */
+	showHeader: boolean;
 
-	headerClassName?: string; // class name applied to the header row
-	rowClassName?: string; // class name applied to each body row
-	footerClassName?: string; // class name applied to the footer row
-	headerCellClassName?: string; // class name applied to each cell in the header row
-	rowCellClassName?: string // class name applied to each cell in the body rows
-	footerCellClassName?: string // class name applied to each cell in the footer row
+	/**
+	 * Hide or show the body part of the table. Not sure why you would want to hide it if you are using this library. Defaults true
+	 */
+	showBody: boolean;
 
-	headerStyle?: CSSProperties; // style applied to the header row
-	rowStyle?: CSSProperties; // style applied to each body row
-	footerStyle?: CSSProperties; // style applied to the footer row
-	headerCellStyle?: CSSProperties; // style applied to each cell in the header row
-	rowCellStyle?: CSSProperties; // style applied to reach cell in the body rows
-	footerCellStyle?: CSSProperties; // style applied to each cell in the footer row
+	/**
+	 * className applied to the header row
+	 */
+	headerClassName?: string;
+
+	/**
+	 * className applied to each row in the body
+	 */
+	rowClassName?: string;
+
+	/**
+	 * className applied to each cell in the header row
+	 */
+	headerCellClassName?: string;
+
+	/**
+	 * className applied to each cell in the table body
+	 */
+	rowCellClassName?: string;
+
+	/**
+	 * style tag applied to the header row
+	 */
+	headerStyle?: CSSProperties;
+
+	/**
+	 * style tag applied to each row in the body
+	 */
+	rowStyle?: CSSProperties;
+
+	/**
+	 * style tag applied to each cell in the header row
+	 */
+	headerCellStyle?: CSSProperties;
+
+	/**
+	 * style tag applied to each cell in the table body
+	 */
+	rowCellStyle?: CSSProperties;
 
 	// filter out rows that are shown
-	rowFilter?: ContextFunctionRow<boolean>;
-
-	// pagination options
-	pageSize?: number; // amount to show on a page, if undefined then unlimited
-	pageIndex?: number; // which page are you on
-	hidePaginationControl?: boolean; // will hide the pagination options
+	rowFilter?: ContextFunctionRow<boolean>; // TODO
 
 	// create your own pagination controls
-	paginationControlsRender?: ContextFunctionPagination<ReactNode>;
+	paginationControlsRender?: ContextFunctionPagination<ReactNode>; // TODO
 
 	// loading, its nice to use this instead of increment loading since we can just block a table
-	loading?: boolean;
-	loadingOverlay?: ContextFunctionData<ReactNode>;
+	loading?: boolean; // TODO
+	loadingOverlay?: ContextFunctionData<ReactNode>; // TODO
 }
 
 export const TableGenerator: React.FC<TableGeneratorProps> = (props) => {
 
-	const {
-		data,
-		columnOptions,
-		sortable,
-		showHeader,
-		showBody,
-	} = props;
-
+	// Save the currently selected column used to determine sorting (if any) as well as ascending or descending.
 	const [sortConfiguration, setSortConfiguration] = useState<ISortStyle>(undefined);
 
-	const sortedData: TableData = sortTableData(props.data, columnOptions, sortConfiguration, sortable);
+	// Generated the sorted data on each render (due to the sortConfiguration changing or new data coming in)
+	const sortedData: TableData = sortTableData(props.data, props.columnOptions, sortConfiguration, props.sortable);
 
-	// TODO change spreaders into manual entry
 	return (
-		<div className="table-responsive">
-			<table className="content-table">
-				{showHeader && (
-					<TableHeader
-						{...props}
-						data={sortedData}
-						sortConfiguration={sortConfiguration}
-						onSort={setSortConfiguration}
-					/>
-				)}
+		<div className="table-and-paginator-container">
+			<div className="table-responsive">
+				<table className="content-table">
+					{props.showHeader && (
+						<TableHeader
+							data={sortedData}
+							columnOptions={props.columnOptions}
+							headerClassName={props.headerClassName}
+							headerStyle={props.headerStyle}
+							sortConfiguration={sortConfiguration}
+							onSort={setSortConfiguration}
+							sortable={props.sortable}
+							showSortIcons={props.showSortIcons}
+						/>
+					)}
 
-				{showBody && (
-					<TableRowManager
-						{...props}
-						data={sortedData}
+					{props.showBody && (
+						<TableRowManager
+							data={sortedData}
+							columnOptions={props.columnOptions}
+							rowClassName={props.rowClassName}
+							rowCellClassName={props.rowCellClassName}
+							rowStyle={props.rowStyle}
+							rowCellStyle={props.rowStyle}
+						/>
+					)}
+				</table>
+			</div>
+
+			{props.paginatorProps?.show && (
+				<div className="paginator-scroll-manager">
+					<Paginator
+						show={props.paginatorProps?.show}
+						limitLabel={props.paginatorProps?.limitLabel}
+						currentLimit={props.paginatorProps?.currentLimit}
+						limitOptions={props.paginatorProps?.limitOptions}
+						total={props.paginatorProps?.total}
+						onLimitChange={props.paginatorProps?.onLimitChange}
+						enableGoPrevious={props.paginatorProps?.enableGoPrevious}
+						enableGoNext={props.paginatorProps?.enableGoNext}
+						showGoToFirstButton={props.paginatorProps?.showGoToFirstButton}
+						showGoToLastButton={props.paginatorProps?.showGoToLastButton}
+						currentOffset={props.paginatorProps?.currentOffset}
+						availableOffsets={props.paginatorProps?.availableOffsets}
+						onOffsetChange={props.paginatorProps?.onOffsetChange}
 					/>
-				)}
-			</table>
+				</div>
+			)}
 		</div>
 	);
 };
@@ -129,7 +312,6 @@ export const TableGenerator: React.FC<TableGeneratorProps> = (props) => {
 TableGenerator.defaultProps = {
 	showHeader: true,
 	showBody: true,
-	showFooter: false,
 	showSortIcons: true,
 };
 

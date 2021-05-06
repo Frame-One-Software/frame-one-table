@@ -1,16 +1,19 @@
 import React, {ReactNode} from "react";
 import {TableGeneratorProps} from "./TableGenerator";
-import {TableDataEntryArray, TableDataEntryJSON} from "./contextTypes";
+import {TableDataEntry} from "./contextTypes";
 import TableRow from "./TableRow";
 
-const TableRowManager: React.FC<TableGeneratorProps> = (props: TableGeneratorProps) => {
+const TableRowManager: React.FC<Partial<TableGeneratorProps>> = (props) => {
 
-	const {data} = props;
-
-	function makeTableRow(row: TableDataEntryArray | TableDataEntryJSON, i: number): ReactNode {
+	function makeTableRow(row: TableDataEntry, i: number): ReactNode {
 		return (
 			<TableRow
-				{...props}
+				data={props.data}
+				columnOptions={props.columnOptions}
+				rowClassName={props.rowClassName}
+				rowCellClassName={props.rowCellClassName}
+				rowStyle={props.rowStyle}
+				rowCellStyle={props.rowStyle}
 				rowData={row}
 				rowIndex={i}
 			/>
@@ -19,7 +22,7 @@ const TableRowManager: React.FC<TableGeneratorProps> = (props: TableGeneratorPro
 
 	return (
 		<tbody>
-			{data.map(makeTableRow)}
+			{(props.data as Array<any>)?.map(makeTableRow)}
 		</tbody>
 	);
 };

@@ -1,5 +1,6 @@
 @import "./variables.css";
 @import "./table.css";
+@import "./paginator.css";
 
 .cursor-pointer {
     cursor: pointer;

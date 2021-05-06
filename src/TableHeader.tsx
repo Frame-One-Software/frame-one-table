@@ -3,14 +3,12 @@ import {ColumnOption, TableGeneratorProps} from "./TableGenerator";
 import classNames from "classnames";
 import {ISortStyle, SortOrder} from "./utils/sorting";
 
-interface ITableHeaderProps extends TableGeneratorProps {
+interface ITableHeaderProps extends Partial<TableGeneratorProps> {
 	sortConfiguration: ISortStyle;
 	onSort?(sortConfiguration: ISortStyle): void;
 }
 
-const TableHeader: React.FC<ITableHeaderProps> = (props: ITableHeaderProps) => {
-
-	const {data, columnOptions, headerClassName, headerStyle} = props;
+const TableHeader: React.FC<ITableHeaderProps> = (props) => {
 
 	function makeSortingIcons(_sortConfiguration: ISortStyle, currentColumn: boolean): ReactNode {
 		const ascending: boolean = _sortConfiguration?.order === SortOrder.ASCENDING;
@@ -56,14 +54,14 @@ const TableHeader: React.FC<ITableHeaderProps> = (props: ITableHeaderProps) => {
 
 		// Reassign the content to the custom render function if it exists.
 		if (column.headerRender) {
-			content = column.headerRender(column.headerValue, undefined, column.key, data, i);
+			content = column.headerRender(column.headerValue, undefined, column.key, props.data, i);
 		}
 
 
 		// Generate classes for the header cell.
 		const thClasses: string = classNames(column.headerCellClassName, {
-			"cursor-pointer": isSortable,
-			"sortable-th": isSortable && showSortIcons,
+			"sortable-th": isSortable,
+			"sortable-th-with-icons": isSortable && showSortIcons,
 		});
 
 
@@ -123,10 +121,10 @@ const TableHeader: React.FC<ITableHeaderProps> = (props: ITableHeaderProps) => {
 	return (
 		<thead>
 			<tr
-				className={headerClassName}
-				style={headerStyle}
+				className={props.headerClassName}
+				style={props.headerStyle}
 			>
-				{columnOptions.map(makeTableHeaderCell)}
+				{props.columnOptions.map(makeTableHeaderCell)}
 			</tr>
 		</thead>
 	);
