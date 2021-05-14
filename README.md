@@ -101,9 +101,9 @@ class Example extends React.Component {
 | `TableDataEntry` | `TableDataEntryArray` or `TableDataEntryJSON` | Represents a single row
 
 ### Context Helpers
-| Name | Type | Notes |
-| --- | :---: | --- |
-| `ContextFunctionData<R>` | `(data: TableData) => R` |
-| `ContextFunctionCell<R>` | `(value: any, row: TableDataEntryArray or TableDataEntryJSON, key: string or number, data: TableData, index?: number) => R` |
-| `ContextFunctionRow<R>` | `(row: TableDataEntryArray or TableDataEntryJSON, key: string or number, data: TableData, index?: number) => R` |
-| `ContextFunctionPagination<R>` | `(pageSize: number, pageIndex: number, goToPage: (page: number) => void, data: TableData) => R` |
+| Name | Type |
+| --- | :---: |
+| `ContextFunctionData<R>` | `(data: TableData) => R`
+| `ContextFunctionCell<R>` | `(value: any, row: TableDataEntryArray or TableDataEntryJSON, key: string or number, data: TableData, index?: number) => R`
+| `ContextFunctionRow<R>` | `(row: TableDataEntryArray or TableDataEntryJSON, key: string or number, data: TableData, index?: number) => R`
+| `ContextFunctionPagination<R>` | `(pageSize: number, pageIndex: number, goToPage: (page: number) => void, data: TableData) => R`
