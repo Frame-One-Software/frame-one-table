@@ -54,7 +54,7 @@ const TableHeader: React.FC<ITableHeaderProps> = (props) => {
 
 		// Reassign the content to the custom render function if it exists.
 		if (column.headerRender) {
-			content = column.headerRender(column.headerValue, undefined, column.key, props.data, i);
+			content = column.headerRender(column.headerValue, undefined, column.key, props.data, column, i);
 		}
 
 

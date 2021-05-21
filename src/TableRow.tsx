@@ -33,7 +33,7 @@ const TableRow: React.FC<ITableRowProps> = (props) => {
 
 		// Run value through formatter if it exists
 		if (column.valueFormatter) {
-			content = column.valueFormatter(content, rowData, column.key, data, rowIndex);
+			content = column.valueFormatter(content, rowData, column.key, data, column, rowIndex);
 		}
 
 		// Convert value to string
@@ -43,7 +43,7 @@ const TableRow: React.FC<ITableRowProps> = (props) => {
 
 		// Reassign the content to the custom render function if it exists.
 		if (column.cellRender) {
-			content = column.cellRender(content, rowData, column.key, data, rowIndex);
+			content = column.cellRender(content, rowData, column.key, data, column, rowIndex);
 		}
 
 
