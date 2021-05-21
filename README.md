@@ -1,4 +1,6 @@
 # Frame One Table
+[![NPM](https://img.shields.io/npm/v/frame-one-table.svg)](https://www.npmjs.com/package/frame-one-table)
+[![NPM](https://img.shields.io/npm/dt/frame-one-table.svg)](https://www.npmjs.com/package/frame-one-table)
 
 ## Installation
 
