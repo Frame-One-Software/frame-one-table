@@ -4,12 +4,12 @@
 
 ### npm
 ```bash
-npm frame-one-table
+npm install frame-one-table
 ```
 
 ### yarn
 ```bash
-yarn frame-one-table
+yarn add frame-one-table
 ```
 
 ## Usage
