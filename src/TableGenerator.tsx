@@ -11,6 +11,8 @@ import TableRowManager from "./TableRowManager";
 import "./style/index.css";
 import {ISortStyle, sortTableData} from "./utils/sorting";
 import Paginator from "./Paginator";
+import classNames from "classnames";
+import Loader, {LoadingIcon} from "./Loader";
 
 export interface IPaginatorProps {
 	/**
@@ -243,9 +245,51 @@ export interface TableGeneratorProps {
 	// create your own pagination controls
 	paginationControlsRender?: ContextFunctionPagination<ReactNode>; // TODO
 
-	// loading, its nice to use this instead of increment loading since we can just block a table
-	loading?: boolean; // TODO
-	loadingOverlay?: ContextFunctionData<ReactNode>; // TODO
+	/**
+	 * boolean indicating that the table is loading new data from an api. In which case either a preset loading or custom loading will be shown.
+	 */
+	loading?: boolean;
+
+	/**
+	 * Use this prop to select a loading icon if you don't want to supply your own loading animation or overlay.
+	 *
+	 */
+	loadingIcon?: LoadingIcon;
+
+	/**
+	 * Custom element to show when the table is loading.
+	 */
+	loadingOverlay?: ContextFunctionData<ReactNode>;
+
+	/**
+	 * When enabled every other row will be a different color. Defaults true.
+	 */
+	striped?: boolean;
+
+	/**
+	 * Custom text for when no data is present in the table.
+	 */
+	noDataMessage?: string;
+
+	/**
+	 * Toggle whether or not to actually show the no data message. Combine with loading props to get desired results.
+	 */
+	enableNoDataMessage?: boolean;
+
+	/**
+	 * className for the no data cell.
+	 */
+	noDataClassName?: string;
+
+	/**
+	 * style tag for the no data cell.
+	 */
+	noDataStyle?: CSSProperties;
+
+	/**
+	 * Custom rendered item for inside no data cell.
+	 */
+	noDataRender?: ReactNode;
 }
 
 export const TableGenerator: React.FC<TableGeneratorProps> = (props) => {
@@ -259,7 +303,11 @@ export const TableGenerator: React.FC<TableGeneratorProps> = (props) => {
 	return (
 		<div className="table-and-paginator-container">
 			<div className="table-responsive">
-				<table className="content-table">
+				<table
+					className={classNames("content-table", {
+						"frame-one-table-striped": props.striped,
+					})}
+				>
 					{props.showHeader && (
 						<TableHeader
 							data={sortedData}
@@ -281,9 +329,27 @@ export const TableGenerator: React.FC<TableGeneratorProps> = (props) => {
 							rowCellClassName={props.rowCellClassName}
 							rowStyle={props.rowStyle}
 							rowCellStyle={props.rowStyle}
+							noDataMessage={props.noDataMessage}
+							enableNoDataMessage={props.enableNoDataMessage}
+							noDataClassName={props.noDataClassName}
+							noDataStyle={props.noDataStyle}
+							noDataRender={props.noDataRender}
 						/>
 					)}
+
+					{props.loading && (
+						<div className="frame-one-table-header-loader"/>
+					)}
+
 				</table>
+
+				{props.loading && (
+					<Loader
+						loadingIcon={props.loadingIcon}
+						loadingOverlay={props.loadingOverlay}
+						data={sortedData}
+					/>
+				)}
 			</div>
 
 			{props.paginatorProps?.show && (
@@ -313,6 +379,9 @@ TableGenerator.defaultProps = {
 	showHeader: true,
 	showBody: true,
 	showSortIcons: true,
+	striped: true,
+	loading: false,
+	enableNoDataMessage: true,
 };
 
 export default TableGenerator;

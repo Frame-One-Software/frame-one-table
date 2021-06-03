@@ -5,6 +5,7 @@ import Paginator from "./Paginator";
 import TableRowManager from "./TableRowManager";
 import * as ContextTypes from "./contextTypes";
 import {ISortStyle, SortOrder, sortTableData} from "./utils/sorting";
+import Loader, {ILoaderProps} from "./Loader";
 
 
 export {
@@ -28,4 +29,7 @@ export {
 	sortTableData,
 	ISortStyle,
 	SortOrder,
+
+	Loader,
+	ILoaderProps,
 }

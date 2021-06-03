@@ -1,6 +1,7 @@
 import React from 'react';
 import {Story, Meta} from '@storybook/react';
 import TableGenerator, {TableGeneratorProps} from './TableGenerator';
+import {LoadingIcon} from "./Loader";
 
 export default {
 	title: 'Example/TableGenerator',
@@ -145,4 +146,7 @@ Primary.args = {
 		availableOffsets: [0, 1, 2, 3, 4],
 		onOffsetChange: (v) => {alert("new offset:" + v)},
 	},
+	loadingIcon: LoadingIcon.SPINNER,
+	loading: false,
+	enableNoDataMessage: true,
 };

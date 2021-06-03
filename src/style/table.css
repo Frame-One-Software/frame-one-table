@@ -8,6 +8,7 @@
 
 /* Table container, enables horizontal scrolling when parent container is too small */
 .table-responsive {
+  position: relative;
   display: block;
   width: 100%;
   overflow-x: auto;
@@ -17,8 +18,8 @@
 
 /* General table */
 .content-table {
+  position: relative;
   border-collapse: collapse;
-  margin: 25px 0;
   font-size: 0.9em;
   width: 100%;
   border-radius: 5px 5px 0 0;
@@ -87,7 +88,7 @@
 }
 
 /* Make every other row striped if enabled */
-.content-table tbody tr:nth-of-type(even) {
+.frame-one-table-striped tbody tr:nth-of-type(even) {
   background-color: var(--whiteA);
 }
 
@@ -100,4 +101,9 @@
 .content-table tbody tr.active-row {
   font-weight: bold;
   color: var(--lightBlue);
+}
+
+.frame-one-table-no-data-cell {
+  text-align: center;
+  font-style: italic;
 }
