@@ -1,6 +1,6 @@
 {
   "name": "frame-one-table",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "A react table with maximum flexibility.",
   "main": "build/index.js",
   "module": "build/index.es.js",
@@ -21,7 +21,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "tsc && copyfiles -u 1 src/**/*.css build/ && find ./build -type f -name \"**.stories.*\" -delete",
+    "build": "tsc && copyfiles -u 1 \"src/**/*.css\" build/ && find ./build -type f -name \"**.stories.*\" -delete",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public",
