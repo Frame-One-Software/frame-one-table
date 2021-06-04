@@ -2,7 +2,7 @@
 @import "./table.css";
 @import "./paginator.css";
 @import "./loading.css";
-@import "./loaders";
+@import "./loaders/index.css";
 
 .cursor-pointer {
     cursor: pointer;
