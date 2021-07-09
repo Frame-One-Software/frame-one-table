@@ -121,7 +121,7 @@ export interface ColumnOption {
 	 * className applied to the body cells of this column
 	 *
 	 */
-	rowCellClassName?: string;
+	rowCellClassName?: string | ContextFunctionCell<string>;
 
 	/**
 	 * style tag applied to the header cell
