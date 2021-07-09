@@ -48,7 +48,7 @@ const TableRow: React.FC<ITableRowProps> = (props) => {
 
 
 		// Generate classes for the header cell.
-		const _rowClassName: string = (typeof column.rowCellClassName === "string" || !column.rowCellClassName) ? column.rowCellClassName : column.rowCellClassName(content, rowData, column.key, data, column, rowIndex);
+		const _rowClassName: string = (typeof column.rowCellClassName === "string" || !column.rowCellClassName) ? column.rowCellClassName as string : column.rowCellClassName(content, rowData, column.key, data, column, rowIndex);
 		const cellClasses: string = classNames(rowCellClassName, _rowClassName);
 
 
