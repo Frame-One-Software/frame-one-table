@@ -8,11 +8,17 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - name: Checkout 🛎️
+        uses: actions/checkout@v2.3.1
         with:
-          node-version: '14.x'
-          registry-url: 'https://registry.npmjs.org'
-      - run: npm install
-      - run: npm run deploy-storybook
-
+          persist-credentials: false
+      - name: Install and Build 🔧
+        run: | # Install npm packages and build the Storybook files
+          npm install
+          npm run build-storybook
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@3.6.2
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: gh-pages # The branch the action should deploy to.
+          FOLDER: storybook-static # The folder that the build-storybook script generates files.
