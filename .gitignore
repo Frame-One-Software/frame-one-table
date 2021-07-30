@@ -26,3 +26,4 @@ yarn-error.log*
 build
 **/*.tgz
 package
+storybook-static
