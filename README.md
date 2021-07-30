@@ -1,4 +1,4 @@
-# Frame One Table
+[![Frame One Table Logo](./meta/fill_logo_whitebg.png)](https://www.npmjs.com/package/frame-one-table)
 [![NPM](https://img.shields.io/npm/v/frame-one-table.svg)](https://www.npmjs.com/package/frame-one-table)
 [![NPM](https://img.shields.io/npm/dt/frame-one-table.svg)](https://www.npmjs.com/package/frame-one-table)
 [![GITHUB](https://img.shields.io/github/issues/Frame-One-Software/frame-one-table.svg)](https://github.com/Frame-One-Software/frame-one-table/issues)
