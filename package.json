@@ -1,6 +1,6 @@
 {
   "name": "frame-one-table",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "A react table with maximum flexibility.",
   "main": "build/index.js",
   "module": "build/index.es.js",
@@ -22,10 +22,9 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "tsc && copyfiles -u 1 \"src/**/*.css\" build/ && find ./build -type f -name \"**.stories.*\" -delete",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public",
-    "build-storybook": "build-storybook -s public"
+    "deploy-storybook": "storybook-to-ghpages",
+    "build-storybook": "build-storybook -o ./storybook-static"
   },
   "eslintConfig": {
     "extends": [
@@ -62,9 +61,11 @@
     "@storybook/node-logger": "6.2.8",
     "@storybook/preset-create-react-app": "3.1.7",
     "@storybook/react": "6.2.8",
+    "@storybook/storybook-deployer": "2.8.10",
     "copyfiles": "2.4.1",
     "react-scripts": "4.0.3",
     "typescript": "4.1.2",
-    "react-dom": "17.0.2"
+    "react-dom": "17.0.2",
+    "react": "17.0.2"
   }
 }
