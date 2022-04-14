@@ -2,6 +2,7 @@ import React from 'react';
 import {Story, Meta} from '@storybook/react';
 import TableGenerator, {TableGeneratorProps} from './TableGenerator';
 import {LoadingIcon} from "./Loader";
+import {CellContextDetails} from "./contextTypes";
 
 export default {
 	title: 'Example/TableGenerator',
@@ -12,12 +13,12 @@ const Template: Story<TableGeneratorProps> = (args) => <TableGenerator {...args}
 
 export const Primary = Template.bind({});
 
-function stringToCaps(word: string = ""): string {
+function stringToCaps(word: string = "", details: CellContextDetails): string {
 	if (word === "") {
 		return word;
 	}
 
-	return word[0].toUpperCase() + word.substring(1);
+	return word?.[0]?.toUpperCase() + word?.substring(1);
 }
 
 Primary.args = {
@@ -28,6 +29,9 @@ Primary.args = {
 			sex: true,
 			height: 188,
 			favWord: "load",
+			nestedData: {
+				test: 1,
+			},
         },
 		{
 			firstName: "christopher",
@@ -35,6 +39,9 @@ Primary.args = {
 			sex: true,
 			height: 180,
 			favWord: "reference",
+			nestedData: {
+				test: 1,
+			},
 		},
 		{
 			firstName: "lucy",
@@ -42,6 +49,9 @@ Primary.args = {
 			sex: false,
 			height: 175,
 			favWord: "perforate",
+			nestedData: {
+				test: 1,
+			},
 		},
 		{
 			firstName: "victor",
@@ -49,6 +59,9 @@ Primary.args = {
 			sex: true,
 			height: 230,
 			favWord: "map",
+			nestedData: {
+				test: 1,
+			},
 		},
 		{
 			firstName: "susan",
@@ -56,6 +69,9 @@ Primary.args = {
 			sex: false,
 			height: 170,
 			favWord: "split",
+			nestedData: {
+				test: 1,
+			},
 		},
 		{
 			firstName: "raymond",
@@ -63,6 +79,9 @@ Primary.args = {
 			sex: true,
 			height: 176,
 			favWord: "upset",
+			nestedData: {
+				test: 1,
+			},
 		},
 		{
 			firstName: "jerry",
@@ -70,6 +89,9 @@ Primary.args = {
 			sex: true,
 			height: 179,
 			favWord: "establish",
+			nestedData: {
+				test: 1,
+			},
 		},
 	],
 	columnOptions: [
@@ -78,6 +100,16 @@ Primary.args = {
 			headerValue: "First Name",
 			// sortable: true,
 			valueFormatter: stringToCaps,
+		},
+		{
+			key: "nestedData",
+			headerValue: "Nested Test",
+			// sortable: true,
+			cellRender: (nestedData: {test: number}, data: CellContextDetails) => {
+				console.log("nested:", nestedData);
+				console.log("data:", data);
+				return nestedData.test;
+			},
 		},
 		{
 			key: "lastName",

@@ -1,12 +1,12 @@
 import React, {ReactNode} from "react";
 import {TableGeneratorProps} from "./TableGenerator";
-import {TableDataEntry} from "./contextTypes";
+import {TableDataEntryJSON} from "./contextTypes";
 import TableRow from "./TableRow";
 import classNames from "classnames";
 
 const TableRowManager: React.FC<Partial<TableGeneratorProps>> = (props) => {
 
-	function makeTableRow(row: TableDataEntry, i: number): ReactNode {
+	function makeTableRow(row: TableDataEntryJSON, i: number): ReactNode {
 		return (
 			<TableRow
 				data={props.data}

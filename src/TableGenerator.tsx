@@ -1,10 +1,8 @@
 import React, {CSSProperties, ReactNode, useState} from "react";
 import {
-	ContextFunctionCell,
-	ContextFunctionData,
-	ContextFunctionPagination,
-	ContextFunctionRow,
-	TableData, TableDataEntry
+	ContextFunctionCellWithoutValue,
+	ContextFunctionCellWithValue,
+	TableData, TableDataEntryJSON
 } from './contextTypes';
 import TableHeader from "./TableHeader";
 import TableRowManager from "./TableRowManager";
@@ -83,11 +81,11 @@ export interface IPaginatorProps {
 	onOffsetChange(newOffset: number): void;
 }
 
-export interface ColumnOption {
+export interface ColumnOption<T = string> {
 	/**
 	 * key that is used to extract the correct value from the row's object (string) or array (number)
 	 */
-	key: string | number;
+	key: string;
 
 	/**
 	 * Label for the header cell (ie. First Name)
@@ -98,18 +96,18 @@ export interface ColumnOption {
 	/**
 	 * Format function to run the values for the column's body cells through before displaying them (ie. (height) => height + "cm"). Does not modify the value used to compare for sorting the column
 	 */
-	valueFormatter?: ContextFunctionCell<any>;
+	valueFormatter?: ContextFunctionCellWithValue<T, string>;
 
 	/**
 	 * Custom render function for the header cell
 	 */
-	headerRender?: ContextFunctionCell<ReactNode>;
+	headerRender?: ContextFunctionCellWithValue<T, ReactNode>;
 
 	/**
 	 * Custom render function for the body cells of this column
 	 *
 	 */
-	cellRender?: ContextFunctionCell<ReactNode>;
+	cellRender?: ContextFunctionCellWithValue<T, ReactNode>;
 
 	/**
 	 * className applied to the header cell
@@ -121,7 +119,7 @@ export interface ColumnOption {
 	 * className applied to the body cells of this column
 	 *
 	 */
-	rowCellClassName?: string | ContextFunctionCell<string>;
+	rowCellClassName?: string | ContextFunctionCellWithValue<string, string>;
 
 	/**
 	 * style tag applied to the header cell
@@ -155,7 +153,7 @@ export interface ColumnOption {
 	 * @param columns
 	 * @param sortConfiguration
 	 */
-	sortFunction?: (a: any, b: any, aRow: TableDataEntry, bRow: TableDataEntry, data: TableData, columns: ColumnOption[], sortConfiguration: ISortStyle) => number;
+	sortFunction?: (a: any, b: any, aRow: TableDataEntryJSON, bRow: TableDataEntryJSON, data: TableData, columns: ColumnOption<T>[], sortConfiguration: ISortStyle) => number;
 
 	/**
 	 * Toggle for hiding a column... Perhaps if a column becomes hidden based on certain conditions on your end, change this to false instead of creating a whole new set of column options
@@ -240,10 +238,10 @@ export interface TableGeneratorProps {
 	rowCellStyle?: CSSProperties;
 
 	// filter out rows that are shown
-	rowFilter?: ContextFunctionRow<boolean>; // TODO
+	// rowFilter?: ContextFunctionRow<boolean>; // TODO
 
 	// create your own pagination controls
-	paginationControlsRender?: ContextFunctionPagination<ReactNode>; // TODO
+	// paginationControlsRender?: ContextFunctionPagination<ReactNode>; // TODO
 
 	/**
 	 * boolean indicating that the table is loading new data from an api. In which case either a preset loading or custom loading will be shown.
@@ -259,7 +257,7 @@ export interface TableGeneratorProps {
 	/**
 	 * Custom element to show when the table is loading.
 	 */
-	loadingOverlay?: ContextFunctionData<ReactNode>;
+	loadingOverlay?: ContextFunctionCellWithoutValue;
 
 	/**
 	 * When enabled every other row will be a different color. Defaults true.
