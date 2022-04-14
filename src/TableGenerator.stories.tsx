@@ -106,8 +106,6 @@ Primary.args = {
 			headerValue: "Nested Test",
 			// sortable: true,
 			cellRender: (nestedData: {test: number}, data: CellContextDetails) => {
-				console.log("nested:", nestedData);
-				console.log("data:", data);
 				return nestedData.test;
 			},
 		},
