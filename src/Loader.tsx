@@ -1,5 +1,5 @@
 import React, {ReactNode} from "react";
-import {ContextFunctionData, TableData} from "./contextTypes";
+import {ContextFunctionCellWithoutValue, TableData} from "./contextTypes";
 
 export enum LoadingIcon {
 	CIRCLE,
@@ -18,7 +18,7 @@ export enum LoadingIcon {
 
 export interface ILoaderProps {
 	loadingIcon?: LoadingIcon;
-	loadingOverlay?: ContextFunctionData<ReactNode>;
+	loadingOverlay?: ContextFunctionCellWithoutValue<ReactNode>;
 	data?: TableData;
 }
 
