@@ -7,8 +7,7 @@ import * as ContextTypes from "./contextTypes";
 import {ISortStyle, SortOrder, sortTableData} from "./utils/sorting";
 import Loader, {ILoaderProps} from "./Loader";
 
-
-export type {
+export {
 	TableGenerator,
 	ColumnOption,
 	TableGeneratorProps,
