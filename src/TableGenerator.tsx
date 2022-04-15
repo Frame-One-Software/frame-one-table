@@ -185,7 +185,7 @@ export interface TableGeneratorProps {
 	/**
 	 * Toggle to hide or show the arrow icons in the header cells when a column is sortable. Defaults true
 	 */
-	showSortIcons: boolean;
+	showSortIcons?: boolean;
 
 	/**
 	 * Hide or show the header row. Defaults true
@@ -376,7 +376,7 @@ export const TableGenerator: React.FC<TableGeneratorProps> = (props) => {
 TableGenerator.defaultProps = {
 	showHeader: true,
 	showBody: true,
-	showSortIcons: true,
+	showSortIcons: false,
 	striped: true,
 	loading: false,
 	enableNoDataMessage: true,
