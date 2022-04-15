@@ -6,6 +6,8 @@
 
 ### [➡️ Try out the table in the Storybook! ⬅️](https://frame-one-software.github.io/frame-one-table/)
 
+version 0.2.0 had some big changes to how data is passed around, will document eventually
+
 ## Installation
 
 ### npm
