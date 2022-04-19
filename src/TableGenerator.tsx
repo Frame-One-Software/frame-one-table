@@ -81,7 +81,7 @@ export interface IPaginatorProps {
 	onOffsetChange(newOffset: number): void;
 }
 
-export interface ColumnOption<T = string> {
+export interface ColumnOption<T = any> {
 	/**
 	 * key that is used to extract the correct value from the row's object (string) or array (number)
 	 */
