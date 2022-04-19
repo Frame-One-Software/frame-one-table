@@ -12,7 +12,7 @@ export type TableData = Array<TableDataEntryJSON>;
 // export type ContextFunctionPagination<R> = (pageSize: number, pageIndex: number, goToPage: (page: number) => void, data: TableData) => R
 
 // v2
-export interface CellContextDetails<T = string> { // todo rename
+export interface CellContextDetails<T> { // todo rename
 	value: T;
 	row: TableDataEntryJSON;
 	key: string;
