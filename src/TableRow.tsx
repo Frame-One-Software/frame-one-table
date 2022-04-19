@@ -28,8 +28,10 @@ const TableRow: React.FC<ITableRowProps> = (props) => {
 
 		// Create the content to be rendered, starting with the cell value found within the data.
 		// Value is .toString()'d so numbers and booleans will display properly.
-		let content: any = rowData?.[column.key]; // todo better typing eventually.
-
+		let content = rowData;
+		if (column.key) {
+			content = rowData?.[column.key];
+		}
 		// Construct this object with all the details needed for the value formatter / cell render functions
 		const cellContextDetails: CellContextDetails = {
 			value: content,
@@ -57,7 +59,9 @@ const TableRow: React.FC<ITableRowProps> = (props) => {
 		}
 
 		// Generate classes for the header cell.
-		const _rowClassName: string = (typeof column.rowCellClassName === "string" || !column.rowCellClassName) ? column.rowCellClassName as string : column.rowCellClassName(content, cellContextDetails);
+		const _rowClassName: string = (typeof column.rowCellClassName === "string" || !column.rowCellClassName) ?
+			column.rowCellClassName as string :
+			column.rowCellClassName(content.toString(), cellContextDetails);
 		const cellClasses: string = classNames(rowCellClassName, _rowClassName);
 
 		return (

@@ -102,11 +102,11 @@ Primary.args = {
 			valueFormatter: stringToCaps,
 		},
 		{
-			key: "nestedData",
+			key: undefined,
 			headerValue: "Nested Test",
 			// sortable: true,
-			cellRender: (nestedData: {test: number}, data: CellContextDetails) => {
-				return nestedData.test;
+			cellRender: (row: any) => {
+				return row.nestedData?.test;
 			},
 		},
 		{

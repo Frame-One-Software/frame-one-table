@@ -96,7 +96,7 @@ export interface ColumnOption<T = any> {
 	/**
 	 * Format function to run the values for the column's body cells through before displaying them (ie. (height) => height + "cm"). Does not modify the value used to compare for sorting the column
 	 */
-	valueFormatter?: ContextFunctionCellWithValue<T, string>;
+	valueFormatter?: ContextFunctionCellWithValue<T, any>;
 
 	/**
 	 * Custom render function for the header cell
@@ -107,7 +107,7 @@ export interface ColumnOption<T = any> {
 	 * Custom render function for the body cells of this column
 	 *
 	 */
-	cellRender?: ContextFunctionCellWithValue<T, ReactNode>;
+	cellRender?: ContextFunctionCellWithValue<T, any>;
 
 	/**
 	 * className applied to the header cell
