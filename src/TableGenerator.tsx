@@ -139,11 +139,11 @@ export interface ColumnOption<T = any> {
 	/**
 	 * Toggle to hide or show the arrow icons in the header cell if the column is sortable. Takes precedent of the "showSortIcons" props from TableGeneratorProps
 	 */
-	showSortIcons: boolean;
+	showSortIcons?: boolean;
 
 	/**
 	 * Custom sort function for the column where a & b are the values.
-	 * If not custom sort is applied, the library will attempt to sort automatically based on the primitive data type
+	 * If no custom sort is applied, the library will attempt to sort automatically based on the primitive data type
 	 *
 	 * @param a
 	 * @param b
