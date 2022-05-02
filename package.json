@@ -17,7 +17,7 @@
     "react-icons": "^4.2.0"
   },
   "peerDependencies": {
-    "react": "^16.0.0 || ^17.0.0"
+    "react": "16-18"
   },
   "scripts": {
     "start": "react-scripts start",
