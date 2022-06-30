@@ -1,4 +1,4 @@
-import React, {CSSProperties, ReactNode, useState} from "react";
+import React, {CSSProperties, ReactNode} from "react";
 import {
 	ContextFunctionCellWithoutValue,
 	ContextFunctionCellWithValue,
@@ -7,7 +7,6 @@ import {
 import TableHeader from "./TableHeader";
 import TableRowManager from "./TableRowManager";
 import "./style/index.css";
-import {ISortStyle, sortTableData} from "./utils/sorting";
 import Paginator from "./Paginator";
 import classNames from "classnames";
 import Loader, {LoadingIcon} from "./Loader";
@@ -142,20 +141,6 @@ export interface ColumnOption<T = any> {
 	showSortIcons?: boolean;
 
 	/**
-	 * Custom sort function for the column where a & b are the values.
-	 * If no custom sort is applied, the library will attempt to sort automatically based on the primitive data type
-	 *
-	 * @param a
-	 * @param b
-	 * @param aRow
-	 * @param bRow
-	 * @param data
-	 * @param columns
-	 * @param sortConfiguration
-	 */
-	sortFunction?: (a: any, b: any, aRow: TableDataEntryJSON, bRow: TableDataEntryJSON, data: TableData, columns: ColumnOption<T>[], sortConfiguration: ISortStyle) => number;
-
-	/**
 	 * Toggle for hiding a column... Perhaps if a column becomes hidden based on certain conditions on your end, change this to false instead of creating a whole new set of column options
 	 */
 	hidden?: boolean;
@@ -178,14 +163,9 @@ export interface TableGeneratorProps {
 	paginatorProps: IPaginatorProps;
 
 	/**
-	 * Determine a default for each column as sortable. This can be overridden by the columnOptions
+	 * Implement custom sorting for your smart table
 	 */
-	sortable?: boolean;
-
-	/**
-	 * Toggle to hide or show the arrow icons in the header cells when a column is sortable. Defaults true
-	 */
-	showSortIcons?: boolean;
+	onSort?: () => void;
 
 	/**
 	 * Hide or show the header row. Defaults true
@@ -292,12 +272,6 @@ export interface TableGeneratorProps {
 
 export const TableGenerator: React.FC<TableGeneratorProps> = (props) => {
 
-	// Save the currently selected column used to determine sorting (if any) as well as ascending or descending.
-	const [sortConfiguration, setSortConfiguration] = useState<ISortStyle>(undefined);
-
-	// Generated the sorted data on each render (due to the sortConfiguration changing or new data coming in)
-	const sortedData: TableData = sortTableData(props.data, props.columnOptions, sortConfiguration, props.sortable);
-
 	return (
 		<div className="table-and-paginator-container">
 			<div className="table-responsive">
@@ -308,20 +282,17 @@ export const TableGenerator: React.FC<TableGeneratorProps> = (props) => {
 				>
 					{props.showHeader && (
 						<TableHeader
-							data={sortedData}
+							data={props.data}
 							columnOptions={props.columnOptions}
 							headerClassName={props.headerClassName}
 							headerStyle={props.headerStyle}
-							sortConfiguration={sortConfiguration}
-							onSort={setSortConfiguration}
-							sortable={props.sortable}
-							showSortIcons={props.showSortIcons}
+							onSort={props.onSort}
 						/>
 					)}
 
 					{props.showBody && (
 						<TableRowManager
-							data={sortedData}
+							data={props.data}
 							columnOptions={props.columnOptions}
 							rowClassName={props.rowClassName}
 							rowCellClassName={props.rowCellClassName}
@@ -345,7 +316,7 @@ export const TableGenerator: React.FC<TableGeneratorProps> = (props) => {
 					<Loader
 						loadingIcon={props.loadingIcon}
 						loadingOverlay={props.loadingOverlay}
-						data={sortedData}
+						data={props.data}
 					/>
 				)}
 			</div>
@@ -376,7 +347,6 @@ export const TableGenerator: React.FC<TableGeneratorProps> = (props) => {
 TableGenerator.defaultProps = {
 	showHeader: true,
 	showBody: true,
-	showSortIcons: false,
 	striped: true,
 	loading: false,
 	enableNoDataMessage: true,
