@@ -3,7 +3,6 @@ import {ColumnOption, TableGeneratorProps} from "./TableGenerator";
 import {CellContextDetails} from "./contextTypes";
 
 export interface ITableHeaderProps extends Partial<TableGeneratorProps> {
-	onSort?(): void;
 }
 
 const TableHeader: React.FC<ITableHeaderProps> = (props) => {
@@ -31,10 +30,14 @@ const TableHeader: React.FC<ITableHeaderProps> = (props) => {
 			content = column.headerRender(column.headerValue, cellContextDetails);
 		}
 
+		function onSortHelper(): void {
+			column.onSort?.();
+		}
+
 		return (
 			<th
+				onClick={onSortHelper}
 				style={column.headerCellStyle}
-				onClick={props.onSort}
 			>
 				{content}
 			</th>
@@ -51,10 +54,6 @@ const TableHeader: React.FC<ITableHeaderProps> = (props) => {
 			</tr>
 		</thead>
 	);
-};
-
-TableHeader.defaultProps = {
-	onSort: () => {},
 };
 
 export default TableHeader;

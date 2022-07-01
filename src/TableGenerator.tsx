@@ -93,6 +93,11 @@ export interface ColumnOption<T = any> {
 	headerValue?: any;
 
 	/**
+	 * Implement custom sorting for your smart table column
+	 */
+	onSort?: () => void;
+
+	/**
 	 * Format function to run the values for the column's body cells through before displaying them (ie. (height) => height + "cm"). Does not modify the value used to compare for sorting the column
 	 */
 	valueFormatter?: ContextFunctionCellWithValue<T, any>;
@@ -161,11 +166,6 @@ export interface TableGeneratorProps {
 	 * Props for controlling the paginator
 	 */
 	paginatorProps: IPaginatorProps;
-
-	/**
-	 * Implement custom sorting for your smart table
-	 */
-	onSort?: () => void;
 
 	/**
 	 * Hide or show the header row. Defaults true
@@ -286,7 +286,6 @@ export const TableGenerator: React.FC<TableGeneratorProps> = (props) => {
 							columnOptions={props.columnOptions}
 							headerClassName={props.headerClassName}
 							headerStyle={props.headerStyle}
-							onSort={props.onSort}
 						/>
 					)}
 
