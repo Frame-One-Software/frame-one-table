@@ -28,10 +28,8 @@ const TableRow: React.FC<ITableRowProps> = (props) => {
 
 		// Create the content to be rendered, starting with the cell value found within the data.
 		// Value is .toString()'d so numbers and booleans will display properly.
-		let content = rowData;
-		if (column.key) {
-			content = rowData?.[column.key];
-		}
+		let content = rowData?.[column.key];
+
 		// Construct this object with all the details needed for the value formatter / cell render functions
 		const cellContextDetails: CellContextDetails = {
 			value: content,
