@@ -15,7 +15,6 @@ export {
 	TableRow,
 
 	Paginator,
-	IPaginatorProps,
 
 	TableRowManager,
 	sortTableData,
