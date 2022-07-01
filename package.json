@@ -1,6 +1,6 @@
 {
   "name": "frame-one-table",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "description": "A react table with maximum flexibility.",
   "main": "build/index.js",
   "module": "build/index.es.js",
