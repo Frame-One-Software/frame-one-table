@@ -9,27 +9,26 @@ import Loader, {ILoaderProps} from "./Loader";
 
 export {
 	TableGenerator,
-
-	TableHeader,
-
-	TableRow,
-
-	Paginator,
-
-	TableRowManager,
-	sortTableData,
-
-	Loader,
-}
-
-export type {
-	ContextTypes,
 	ColumnOption,
 	TableGeneratorProps,
+
+	TableHeader,
 	ITableHeaderProps,
+
+	TableRow,
 	ITableRowProps,
+
+	Paginator,
 	IPaginatorProps,
+
+	TableRowManager,
+
+	ContextTypes,
+
+	sortTableData,
 	ISortStyle,
 	SortOrder,
+
+	Loader,
 	ILoaderProps,
 }
