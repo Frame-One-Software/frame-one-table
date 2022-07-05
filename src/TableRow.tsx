@@ -42,7 +42,7 @@ const TableRow: React.FC<ITableRowProps> = (props) => {
 
 		// Run value through formatter if it exists
 		if (column.valueFormatter) {
-			content = column.valueFormatter(content, cellContextDetails);
+			content = column.valueFormatter(content ? content : rowData, cellContextDetails);
 		}
 
 		// Convert value to string
@@ -53,7 +53,7 @@ const TableRow: React.FC<ITableRowProps> = (props) => {
 
 		// Reassign the content to the custom render function if it exists.
 		if (column.cellRender) {
-			content = column.cellRender(content, cellContextDetails);
+			content = column.cellRender(content ? content : rowData, cellContextDetails);
 		}
 
 		// Generate classes for the header cell.
