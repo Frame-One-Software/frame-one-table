@@ -38,6 +38,7 @@ const TableHeader: React.FC<ITableHeaderProps> = (props) => {
 			<th
 				onClick={onSortHelper}
 				style={column.headerCellStyle}
+				className={column.headerCellClassName}
 			>
 				{content}
 			</th>
