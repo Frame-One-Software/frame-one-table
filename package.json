@@ -1,30 +1,34 @@
 {
   "name": "frame-one-table",
-  "version": "0.3.12",
-  "description": "A react table with maximum flexibility.",
-  "main": "build/index.js",
-  "module": "build/index.es.js",
-  "jsnext:main": "build/index.es.js",
-  "repository": "Frame-One-Software/frame-one-table",
-  "author": "frame_one_software",
-  "license": "MIT",
+  "version": "0.3.13",
   "private": false,
-  "dependencies": {
-    "@types/node": "12.0.0",
-    "@types/react": "17.0.0",
-    "@types/react-dom": "17.0.0",
-    "classnames": "^2.3.1",
-    "react-icons": "^4.2.0"
-  },
-  "peerDependencies": {
-    "react": "^16.0.0 || ^17.0.0 || ^18.0.0"
-  },
+  "description": "A react table with maximum flexibility.",
+  "repository": "Frame-One-Software/frame-one-table",
+  "license": "MIT",
+  "author": "frame_one_software",
+  "main": "build/index.js",
+  "module": "build-esm/index.js",
+  "jsnext:main": "build-esm/index.js",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "tsc && copyfiles -u 1 \"src/**/*.css\" build/ && find ./build -type f -name \"**.stories.*\" -delete",
-    "storybook": "start-storybook -p 6006 -s public",
+    "build": "npm run build-cjs && npm run build-esm",
+    "build-cjs": "tsc && copyfiles -u 1 \"src/**/*.css\" build/ && find ./build -type f -name \"**.stories.*\" -delete",
+    "build-esm": "tsc --build tsconfig.esm.json && copyfiles -u 1 \"src/**/*.css\" build-esm/ && find ./build-esm -type f -name \"**.stories.*\" -delete",
+    "build-storybook": "build-storybook -o ./storybook-static",
     "deploy-storybook": "storybook-to-ghpages",
-    "build-storybook": "build-storybook -o ./storybook-static"
+    "start": "react-scripts start",
+    "storybook": "start-storybook -p 6006 -s public"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   },
   "eslintConfig": {
     "extends": [
@@ -42,30 +46,28 @@
       }
     ]
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
   "devDependencies": {
-    "@storybook/addon-actions": "6.2.8",
-    "@storybook/addon-essentials": "6.2.8",
-    "@storybook/addon-links": "6.2.8",
-    "@storybook/node-logger": "6.2.8",
-    "@storybook/preset-create-react-app": "3.1.7",
-    "@storybook/react": "6.2.8",
-    "@storybook/storybook-deployer": "2.8.10",
-    "copyfiles": "2.4.1",
-    "react-scripts": "4.0.3",
-    "typescript": "4.1.2",
-    "react-dom": "17.0.2",
-    "react": "^16.0.0 || ^17.0.0 || ^18.0.0"
+    "@storybook/addon-actions": "^7.0.23",
+    "@storybook/addon-essentials": "^7.0.23",
+    "@storybook/addon-links": "^7.0.23",
+    "@storybook/node-logger": "^7.0.23",
+    "@storybook/preset-create-react-app": "^7.0.23",
+    "@storybook/react": "^7.0.23",
+    "@storybook/storybook-deployer": "^2.8.16",
+    "@types/node": "^20.3.1",
+    "@types/react": "^18.2.13",
+    "@types/react-dom": "^18.2.6",
+    "copyfiles": "^2.4.1",
+    "typescript": "^4.9.5"
+  },
+  "peerDependencies": {
+    "classnames": "^2.3.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-icons": "^4.2.0",
+    "react-scripts": "^5.0.1"
+  },
+  "engines": {
+    "node": "18.16.0"
   }
 }
